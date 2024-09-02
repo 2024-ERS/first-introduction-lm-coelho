@@ -6,6 +6,8 @@ format: html
 editor: 
   markdown: 
     wrap: 72
+editor_options: 
+  chunk_output_type: console
 ---
 
 # Working with Quarto documents in R
@@ -93,10 +95,15 @@ C <- A+B
 # print the result
 print(C)
 
+#calculate the mean of the numbers 1, 3, 7, 12, 46
+my_numbers <- c(1,3,7,12,46)
+mean(my_numbers)
+base::mean(my_numbers) #use function from package base (except when it comes from base = default)
+
 ```
+The sum of 10 and 5 is 15
 
-
-
+Make a plot
 ```{r, message = FALSE, warning = FALSE}
 #| label: fig-histogram
 #| fig-cap: Histogram of 100 random values from a normal distribution with 0 mean and 1 standard deviation
@@ -107,8 +114,12 @@ set.seed(123)
 # generate 100 random values form a normal distribution with mean=0 and standard deviation 1
 randomvalue <- rnorm(n = 100, mean = 0, sd = 1)
 # convert to a dataframe
+print(randomvalue) # print the random values generated
+mean(randomvalue) # prove that the mean is close to 0
+
 data1<-data.frame(randomvalue)
 # plot as a histogram
+print(data1) # print data frame
 ggplot2::ggplot(data=data1, 
                 mapping=aes(x=randomvalue)) +
   geom_histogram()
