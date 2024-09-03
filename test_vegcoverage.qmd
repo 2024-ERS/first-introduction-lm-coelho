@@ -1,0 +1,62 @@
+---
+title: "(Test) Vegetation Coverage"
+author: "Leonor"
+format: html
+date: "03 Sep 2024"
+---
+
+## Working in Quarto
+
+Quarto enables you to weave together content and executable code into a finished document.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code.
+Some labels are use as code information, not necessarily in the document. For this use function **output: false**.
+Always call for the **library()** from where you need your functions.
+
+```{r}
+#| label: load-libraries
+#| output: false
+library(tidyverse) # load the tidyverse libraries, including readr
+```
+
+## Data source
+
+### Enter data in script 
+
+Data can be entered by typing them into your script
+```{r}
+#| label: enter-data-in-script
+#| warning: false
+ 
+x<-c(1,2,3,4)
+y<-c(1,4,3,5)
+data1<-data.frame(x,y)
+print(data1)
+
+```
+
+Data can be collected from a file in your computer, **setwd**, or from a online source. Once sources are from a online shared document, it's necessary to use a function that reads csv ("links"), **read_csv()**.
+
+```{r}
+#| label: read-google-sheets-data
+#| output: false
+
+test_link<- "https://docs.google.com/spreadsheets/d/1gYg3Skw8oWJHTh9pwEXbUP_tddFZNxu3l8ZE7TkMCCo/pub?gid=1669069809&single=true&output=csv"
+VegCoverage<-read_csv(test_link)
+
+```
+
+
+Once you have your data you can analyse it using the different columns, for example to perform different plots and check for correlation.
+You can use **#/ fig-cap:** show description of plots.
+
+```{r}
+#| label: fig-boxplot
+#| fig-cap: Boxplot of the vegetation converage observed for each species. 
+
+ggplot(data=VegCoverage, 
+       mapping=aes(x=Species_ID,y=CoverPerc)) +
+  geom_boxplot()
+```
