@@ -94,9 +94,42 @@ combidat |>
 # fit a better model, using a loess smoother
 # show this model in ggplot
 
+
+model_lm <- lm(n_obs~elevation_m, data= combidat)
+# linear model y~x
+summary(model_lm)
+29.896 + (-18.003*0.5) #20.89 elevation
+#R2 = 0.225
+#p-value 0.004
+
+
+
+
 ##### plot  how the size (as mean length) of cockles changes with  elevation along the transect
 # omit the observations where length is NA (because no cockles were measures)
 # fit a quadratic model (second-order polynomial)
 # show for each point also the standard errors
 # add appropriate labels for the x and y axis 
+
+combidat_size <- combidat |>
+  dplyr::mutate(n_obs=tidyr::replace_na(n_obs, 0)) |>
+  dplyr::filter(avg_l!= 0)
+
+combidat_size |>
+  ggplot(aes(x=elevation_m, y=avg_l)) +
+  geom_point() + 
+  xlab("Elevation (m)") +
+  ylab("Average size") +
+  geom_smooth(method = "loess")
+
+
+combidat_size$elevation_m2 <- combidat_size$elevation_m^2
+
+quadratic <- lm(avg_l~elevation_m + elevation_m2, data= combidat_size)
+# linear model y~x
+summary(quadratic)
+
+
+
+
 
