@@ -1,6 +1,6 @@
 ---
 title: "Starting with with the dplyr, ggplot2 packages, and the pipe operator |>"
-author: "Han Olff"
+author: "Han Olff - chaged by Leonor"
 date: "2024-08-29"
 format: html
 editor: 
@@ -14,6 +14,10 @@ Load the required libraries :
 
 ```{r message = FALSE, warning = FALSE}
 # clear the R environment
+
+renv::restore()
+# restore your library (keep at the start of every script)
+
 rm(list = ls())
 
 # load the required packages
