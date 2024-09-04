@@ -139,10 +139,12 @@ ggplot2::ggplot(data = FactCockleSize,
 #but now exclude years without data
 drop_na(FactCockleSize) |> #take out the missing data
   ggplot2::ggplot(mapping = aes(x=length_mm, y=thickness_mm)) +
-              geom_point(mapping = aes(col=year)) + 
+              geom_point(mapping = aes(col=year), size=2) + 
               geom_smooth(method = "lm") +
               facet_wrap(~year)
-
+# add labels
+#xlab("cockle length") +
+#ylab("cockle thickeness)
 
 ```
 
