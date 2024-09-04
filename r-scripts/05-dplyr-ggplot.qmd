@@ -84,23 +84,66 @@ ggplot2::ggplot(data = FactCockleSize,
                 mapping = aes(x=length_mm, y=thickness_mm)) +
               geom_point()
 
-
 ```
 
 Further explore the plot with a regression line through all the data
 
 ```{r}
+#plot data with regression line
+ggplot2::ggplot(data = FactCockleSize,
+                mapping = aes(x=length_mm, y=thickness_mm)) +
+              geom_point() + 
+              geom_smooth(method = "lm")
+
+#calculate a linear regression
+model_lm <- lm(thickness_mm~length_mm, data= FactCockleSize)
+# linear model means that y is explain (~) by x, in my specific data
+summary(model_lm)
+#Coeficient ''Estimate'' results
+#equation: thickness_mm= -0.353 + 0699xlength_mm
+
+#a cockle of length 20mm has a predicted with of:
+-0.353 + 0.699*20 #13.62
+
+#also this regression is significant R2=0.899, P-value<0,0001
+
 ```
 
 Make same plot but showing a separate regression line per year
 
 ```{r}
 # color the points by year, but plot one regression line
+
+#turn color as factor
+FactCockleSize <- readr::read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSpormjGiM4uWMTIZYm9Upt5j1Ige_Wu9CrhGGdvjXwxmHP2R6S7JDyEmiGTn3fXihl5s5yBn_sdo8h/pub?gid=1538766002&single=true&output=csv") |> dplyr::filter(CockleObs_ID!=1531, CockleObs_ID!=469) |> # USE PIPE!!
+dplyr::mutate(year=factor(year)) # make year into a factor
+
+#assign colour into your observation depending in the year ()
+ggplot2::ggplot(data = FactCockleSize,
+                mapping = aes(x=length_mm, y=thickness_mm)) +
+              geom_point(mapping = aes(col=year)) + 
+              geom_smooth(method = "lm")
+
 ```
 
 Make a panel plot where with each year is shown as a separate graph
 
 ```{r}
+#color the points but in diferent plots
+ggplot2::ggplot(data = FactCockleSize,
+                mapping = aes(x=length_mm, y=thickness_mm)) +
+              geom_point(mapping = aes(col=year)) + 
+              geom_smooth(method = "lm") + 
+              facet_wrap(~year)
+
+#but now exclude years without data
+drop_na(FactCockleSize) |> #take out the missing data
+  ggplot2::ggplot(mapping = aes(x=length_mm, y=thickness_mm)) +
+              geom_point(mapping = aes(col=year)) + 
+              geom_smooth(method = "lm") +
+              facet_wrap(~year)
+
+
 ```
 
 We conclude from this that: \* there were two important outliers in the
