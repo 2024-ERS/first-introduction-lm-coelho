@@ -55,20 +55,36 @@ cdat2017 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSpormjGiM
                    avg_l=mean(length_mm, na.rm=T), #calculate mean
                    sd_l=sd(length_mm, na.rm=T), #calculate size
                    se_l=sd_l/sqrt(n_obs)) #calculate deviation
-
 print(cdat2017)
 
 
-
 # plot (with a line and points)  how the number of cockles changes with distance along the transect
-
-
 ##### merge the cockle and elevation data into a single table you call "combidat"
+
+combidat <- dplyr::left_join(elevdat2017, cdat2017, by="TransectPoint_ID") |>
+  dplyr::mutate(n_obs=tidyr::replace_na(n_obs, 0)) #replace NA by 0
+#to combine two data sets using the common variable, TransectPoint_ID. Note: longest file first!!
+
+
+combidat |>
+  ggplot(aes(x=elevation_m, y=n_obs)) +
+  geom_point() + 
+  geom_line() #cockles like low elevation
+
+#fit a linear regression
+combidat |>
+  ggplot(aes(x=elevation_m, y=n_obs)) +
+  geom_point() + 
+  geom_smooth(method = "loess") #cockles like low elevation
+
+
 # using Distance_ID as the common variable between the two tables
 
 # show in a plot how cockle density changes with elevation
 
 # fit a linear regression
+
+
 
 # predicted at 0.5 m (x)
 # y = b0 + b1x   (b0 is intercept and b1 is the slope, x is elevation, y is no cockles
