@@ -140,6 +140,8 @@ ggplot2::ggplot(data = FactCockleSize,
 drop_na(FactCockleSize) |> #take out the missing data
   ggplot2::ggplot(mapping = aes(x=length_mm, y=thickness_mm)) +
               geom_point(mapping = aes(col=year), size=2) + 
+              xlab("cockle length") +
+              ylab("cockle thickeness") +
               geom_smooth(method = "lm") +
               facet_wrap(~year)
 # add labels
