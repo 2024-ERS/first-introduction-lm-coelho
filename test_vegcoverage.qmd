@@ -3,6 +3,8 @@ title: "(Test) Vegetation Coverage"
 author: "Leonor"
 format: html
 date: "03 Sep 2024"
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## Working in Quarto
@@ -45,6 +47,9 @@ Data can be collected from a file in your computer, **setwd**, or from a online 
 
 test_link<- "https://docs.google.com/spreadsheets/d/1gYg3Skw8oWJHTh9pwEXbUP_tddFZNxu3l8ZE7TkMCCo/pub?gid=1669069809&single=true&output=csv"
 VegCoverage<-read_csv(test_link)
+VegCoverage
+print(VegCoverage)
+view(VegCoverage)
 
 ```
 
