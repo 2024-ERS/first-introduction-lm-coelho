@@ -16,6 +16,13 @@ data23_24 <- FactEndobenthosCores |>
   summarise(count=n())
 
 
+#apply colorpalette
+palette1 <- brewer.pal(12, "Set3")
+palette2 <- brewer.pal(8, "Paired")
+#combine palettes
+combined_palette <- c(palette1, palette2)
+
+
 #data set of 5 depth diversity
 data_5 <- FactEndobenthosCores |>
   filter(year == 2023 | year == 2024, depth1==5) |>
@@ -56,12 +63,6 @@ data_25 |>
 
 
 
-
-#apply colorpalette
-palette1 <- brewer.pal(12, "Set3")
-palette2 <- brewer.pal(8, "Paired")
-#combine palettes
-combined_palette <- c(palette1, palette2)
 
 
 data23_24 |>
